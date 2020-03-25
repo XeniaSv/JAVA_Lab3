@@ -40,10 +40,11 @@ public class FoodItem extends GenericItem {
 
     //Метод сравнения с помощью метода equals 2-х объектов класса
     public boolean equals(Object o) { //
-        if (hashCode() != o.hashCode()) {
+        if (o == this)
+            return true;
+
+        if (o == null || o.getClass() != this.getClass())
             return false;
-        }
-        if (!(o instanceof FoodItem)) return false;
         FoodItem temp = (FoodItem) o;
         return super.equals(temp) && this.dateOfIncome.equals(temp.dateOfIncome) && this.expires == temp.expires;
     }
@@ -58,4 +59,11 @@ public class FoodItem extends GenericItem {
         return super.toString() + "\tDate of income: " + this.dateOfIncome + "\tExpires: " + this.expires;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        return result;
+    }
 }
